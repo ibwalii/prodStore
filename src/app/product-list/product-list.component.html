@@ -1,20 +1,25 @@
 <div class="content" role="main">
 <input type="hidden" #selection>
 
-<div class="card-container">
-  <button class="card card-small" (click)="selection.value = 'component'" tabindex="0">
+<div *ngFor="let product of products">
+  <a [title]="product.name +' Details '" [routerLink]= "">
+    <h3>
     <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-    <span>New Component</span>
-  </button>
-
-  <button class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-    <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-    <span>Angular Material</span>
-  </button>
+    <span>{{ product.name }}</span>
+    </h3>
+  </a>
+    <p *ngIf="product.description">Description: {{ product.description }}</p>
+    <button (click)="share(product)">
+      Share
+    </button>
+    <app-product-alerts 
+      [product] = "product"
+      (notify)="onNotify()">
+    </app-product-alerts>
 </div>
 
 <!-- Terminal -->
-<div class="terminal" [ngSwitch]="selection.value">
+<!-- <div class="terminal" [ngSwitch]="selection.value">
     <pre *ngSwitchDefault>ng action</pre>
     <pre *ngSwitchCase="'component'">ng generate component xyz</pre>
     <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
@@ -22,7 +27,7 @@
     <pre *ngSwitchCase="'dependency'">ng add _____</pre>
     <pre *ngSwitchCase="'test'">ng test</pre>
     <pre *ngSwitchCase="'build'">ng build</pre>
-</div>
+</div> -->
 
 
 <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
